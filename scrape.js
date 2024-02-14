@@ -13,7 +13,7 @@ async function scrapeGoogleSearchResults(keyword) {
       title: anchor.innerText,
       url: anchor.parentElement.href,
     }));
-    return links.slice(0, 2);
+    return links.slice(0, 3);
   });
 
   const resultsData = [];

@@ -22,7 +22,7 @@ function formatForGPT(searchResults) {
 
   return formattedResults;
 }
-async function generateArticle(prompt, formattedResults) {
+async function generateArticle(formattedResults) {
   const completion = await openai.chat.completions.create({
     messages: [
       {
@@ -60,7 +60,8 @@ async function generateArticle(prompt, formattedResults) {
         Delivery Format:
         
         Provide your article in a well-formatted HTML document, ensuring it adheres to the above guidelines and is ready for digital publication.
-        Objective: Your ultimate goal is to produce a standout article that not only meets SEO benchmarks but is also rich in analysis, engaging to read, and capable of drawing and retaining reader interest across digital platforms.`,
+        Objective: Your ultimate goal is to produce a standout article that not only meets SEO benchmarks but is also rich in analysis, engaging to read, and capable of drawing and retaining reader interest across digital platforms.
+        kindly give back the in well-formatted HTML no need to add header and footer.`,
       },
       { role: "user", content: formattedResults },
     ],
@@ -70,24 +71,25 @@ async function generateArticle(prompt, formattedResults) {
   console.log(completion.choices[0].message.content);
 }
 
+async function saveArticleToFile(article) {
+  fs.writeFile("article.html", article, (err) => {
+    if (err) throw err;
+    console.log("The file has been saved!");
+  });
+}
+
 async function main() {
   console.log("Going to scrape google search results...");
-  const prompt = "how to start dropshipping business in 2024";
+  const prompt =
+    "Domain Authority Checker: A Comprehensive Guide to Understanding and Improving Your Site's DA";
   const searchResults = await scrapeGoogleSearchResults(prompt);
 
   // Preprocess and format the scraped data for GPT
   const formattedResults = formatForGPT(searchResults);
 
   console.log("Writing Articles...");
-  await generateArticle(prompt, formattedResults);
-
-  const savetohtml = (data) => {
-    fs.writeFile("article.html", data, (err) => {
-      if (err) throw err;
-      console.log("Data has been written to file");
-    });
-  };
-  savetohtml(formattedResults);
+  const article = await generateArticle(prompt, formattedResults);
+  await saveArticleToFile(article);
 }
 
 main();
