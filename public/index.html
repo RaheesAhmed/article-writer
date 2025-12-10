@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Article Generator</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-robot"></i> AI Article Generator</h1>
+            <p>Generate SEO-optimized articles with the power of AI</p>
+        </header>
+
+        <main>
+            <div class="input-section">
+                <input type="text" id="topicInput" placeholder="Enter a topic (e.g., The Future of Renewable Energy)...">
+                <button id="generateBtn"><i class="fas fa-magic"></i> Generate Article</button>
+            </div>
+
+            <div id="loading" class="hidden">
+                <div class="spinner"></div>
+                <p>Scraping web and generating content... This may take a minute.</p>
+            </div>
+
+            <div id="result" class="hidden">
+                <div class="result-header">
+                    <h2>Generated Article</h2>
+                    <button id="copyBtn" class="secondary-btn"><i class="far fa-copy"></i> Copy HTML</button>
+                </div>
+                <div id="articleContent" class="article-preview"></div>
+            </div>
+        </main>
+
+        <footer>
+            <p>Powered by Puppeteer & OpenAI</p>
+        </footer>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
